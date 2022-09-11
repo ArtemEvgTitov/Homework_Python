@@ -18,7 +18,3 @@ while result == False:
         palindrome = str(int(palindrome) + int(inverted))
         palin_list = list(palindrome)
         inverted_list = list(reversed(palin_list))
-
-
-
-
