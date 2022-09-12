@@ -4,7 +4,7 @@
 
 def Fibonacci(number):
     positive_list_Fibonacci = [0, 1]
-    negative_list_Fibonacci = [1, 0]
+    negative_list_Fibonacci = [1]
     index = 2
     Fibonacci_list = []
     
@@ -12,7 +12,10 @@ def Fibonacci(number):
         positive_list_Fibonacci.append(positive_list_Fibonacci[index - 1] + positive_list_Fibonacci[index - 2])
         negative_list_Fibonacci.insert(0, positive_list_Fibonacci[index]*(-1))
         index += 1
-
+    index_neg_list = len(negative_list_Fibonacci) - 3
+    while index_neg_list >= 0:
+        negative_list_Fibonacci[index_neg_list] *= (-1)
+        index_neg_list -=2
     Fibonacci_list = negative_list_Fibonacci + positive_list_Fibonacci
     return Fibonacci_list
 
