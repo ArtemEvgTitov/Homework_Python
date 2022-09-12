@@ -15,7 +15,7 @@ def difference(list):
     max_num = max(temp_list)
     min_num = min(temp_list)
 
-    return round((max_num - min_num), 4)
+    return round((max_num - min_num), 10)
 
 
 print(difference(list_number1))
