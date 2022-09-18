@@ -36,13 +36,13 @@ def decryption(key, alphabet):
     with open('task4_Seminar4.txt', 'r', encoding="utf-8") as data:
         for i in data:
             temp += i
-        for i in temp:
-            index = alphabet.find(i)
-            new_index = index - key
-            if i in alphabet:
-                total += alphabet[new_index]
-            else:
-                total += i
+    for i in temp:
+        index = alphabet.find(i)
+        new_index = index - key
+        if i in alphabet:
+            total += alphabet[new_index]
+        else:
+            total += i
     return total
 
 
