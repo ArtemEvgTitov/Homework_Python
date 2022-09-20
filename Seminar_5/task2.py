@@ -90,68 +90,68 @@ def player_move(player, total_number_candies, max_candies):  # Ход Игрок
 
 
 def bot_move(player, total_number_candies, max_candies):  # Ход Бота
-    if max_candies >= 1 and (total_number_candies > max_candies + 1 and total_number_candies < max_candies * 2):
+    if max_candies >= 7 and (total_number_candies > max_candies + 1 and total_number_candies < max_candies * 2):
         move = total_number_candies - max_candies - 1
-    # elif max_candies == 6:
-    #     if total_number_candies == max_candies + 2:
-    #         move = 1
-    #     elif total_number_candies == max_candies + 3:
-    #         move = 2
-    #     elif total_number_candies == max_candies + 4:
-    #         move = 3
-    #     elif total_number_candies == max_candies + 5:
-    #         move = 4
-    #     elif total_number_candies == max_candies + 6:
-    #         move = 5
-    #     elif total_number_candies == max_candies + 7:
-    #         move = 6
-    #     else:
-    #         move = random.randint(1, max_candies)
-    # elif max_candies == 5:
-    #     if total_number_candies == max_candies + 2:
-    #         move = 1
-    #     elif total_number_candies == max_candies + 3:
-    #         move = 2
-    #     elif total_number_candies == max_candies + 4:
-    #         move = 3
-    #     elif total_number_candies == max_candies + 5:
-    #         move = 4
-    #     elif total_number_candies == max_candies + 6:
-    #         move = 5
-    #     else:
-    #         move = random.randint(1, max_candies)
-    # elif max_candies == 4:
-    #     if total_number_candies == max_candies + 2:
-    #         move = 1
-    #     elif total_number_candies == max_candies + 3:
-    #         move = 2
-    #     elif total_number_candies == max_candies + 4:
-    #         move = 3
-    #     elif total_number_candies == max_candies + 5:
-    #         move = 4
-    #     else:
-    #         move = random.randint(1, max_candies)
-    # elif max_candies == 3:
-    #     if total_number_candies == max_candies + 2:
-    #         move = 1
-    #     elif total_number_candies == max_candies + 3:
-    #         move = 2
-    #     elif total_number_candies == max_candies + 4:
-    #         move = 3
-    #     else:
-    #         move = random.randint(1, max_candies)
-    # elif max_candies == 2:
-    #     if total_number_candies == max_candies + 2:
-    #         move = 1
-    #     elif total_number_candies == max_candies + 3:
-    #         move = 2
-    #     else:
-    #         move = random.randint(1, max_candies)
-    # elif max_candies == 1:
-    #     if total_number_candies == max_candies + 2:
-    #         move = 1
-    #     else:
-    #         move = random.randint(1, max_candies)
+    elif max_candies == 6:
+        if total_number_candies == max_candies + 2:
+            move = 1
+        elif total_number_candies == max_candies + 3:
+            move = 2
+        elif total_number_candies == max_candies + 4:
+            move = 3
+        elif total_number_candies == max_candies + 5:
+            move = 4
+        elif total_number_candies == max_candies + 6:
+            move = 5
+        elif total_number_candies == max_candies + 7:
+            move = 6
+        else:
+            move = random.randint(1, max_candies)
+    elif max_candies == 5:
+        if total_number_candies == max_candies + 2:
+            move = 1
+        elif total_number_candies == max_candies + 3:
+            move = 2
+        elif total_number_candies == max_candies + 4:
+            move = 3
+        elif total_number_candies == max_candies + 5:
+            move = 4
+        elif total_number_candies == max_candies + 6:
+            move = 5
+        else:
+            move = random.randint(1, max_candies)
+    elif max_candies == 4:
+        if total_number_candies == max_candies + 2:
+            move = 1
+        elif total_number_candies == max_candies + 3:
+            move = 2
+        elif total_number_candies == max_candies + 4:
+            move = 3
+        elif total_number_candies == max_candies + 5:
+            move = 4
+        else:
+            move = random.randint(1, max_candies)
+    elif max_candies == 3:
+        if total_number_candies == max_candies + 2:
+            move = 1
+        elif total_number_candies == max_candies + 3:
+            move = 2
+        elif total_number_candies == max_candies + 4:
+            move = 3
+        else:
+            move = random.randint(1, max_candies)
+    elif max_candies == 2:
+        if total_number_candies == max_candies + 2:
+            move = 1
+        elif total_number_candies == max_candies + 3:
+            move = 2
+        else:
+            move = random.randint(1, max_candies)
+    elif max_candies == 1:
+        if total_number_candies == max_candies + 2:
+            move = 1
+        else:
+            move = random.randint(1, max_candies)
     else:
         move = random.randint(1, max_candies)
 
@@ -198,6 +198,7 @@ while not new_game:
     new_game_launtch = Game_mode(
         '\nНачать новую игру? \nнаберите "1" - ДА; \nнаберите "2" - НЕТ\nВаш выбор: ')
     if new_game_launtch == 2:
+        print('\nВОЗВРАЩАЙСЯ ЕЩЁ :)')
         exit()
     else:
         total_number_candies, max_candies, player1, player2, bot_player = Rules_game()
