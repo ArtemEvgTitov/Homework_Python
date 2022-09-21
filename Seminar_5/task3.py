@@ -35,7 +35,7 @@ def unicode(total_list):
             total_list[total_list.index(string)] = temp_string
         elif sum_string % string[0] != 0:
             total_list.remove(string)
-    print(total_list)
+    return total_list
             
 
 first_list = ['python', 'c#', 'java']
@@ -43,4 +43,4 @@ second_list = range(1, len(first_list) + 1)
 total_list = total(first_list, second_list)
 
 print(total_list)
-unicode(total_list)
+print(unicode(total_list))
