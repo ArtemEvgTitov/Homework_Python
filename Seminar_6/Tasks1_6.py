@@ -60,7 +60,5 @@ print(temp)
 print('\nTask 6')
 
 N = 5
-list_task6 = list(n for n in range(1, N))
-list_task6 = list(map(lambda x: (-3) ** x, list_task6))
-list_task6.insert(0, 1)
+list_task6 = list(map(lambda x: (-3) ** x, range(N)))
 print(list_task6)
