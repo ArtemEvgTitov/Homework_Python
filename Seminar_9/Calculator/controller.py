@@ -1,26 +1,144 @@
+from distutils.cmd import Command
+import operations as oper
 import logger as log
-import UI as con
-import operations as  oper
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, Bot
+from telegram.ext import Updater, CommandHandler, Filters, MessageHandler, ConversationHandler
+from settings import TOKEN
 
-def button_click():
-    a, b, ver = con.const()
+bot = Bot(token=TOKEN)
+updater = Updater(token=TOKEN)
+dispatcher = updater.dispatcher
 
-    if ver == 0:
-        print('Программа отменена')
-        log.log_exit()
-        exit()
 
-    operation = con.oper()
+def start(update, context):
+    reply_keyboard = [['/sum', '/diff'], [
+        '/div', '/mult'], ['cправка']]
+    markup_key = ReplyKeyboardMarkup(
+        reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    context.bot.send_message(
+        update.effective_chat.id, "Добро пожаловать в калькулятор! 🤓\n/info", reply_markup=markup_key)
+    log.log_one_argument('---ЗАПУСК БОТА---')
 
-    if operation == '*':
-        result = oper.mult(a, b)
-    elif operation == '/':
-        result = oper.div(a, b)
-    elif operation == '+':
-        result = oper.sum(a, b)
-    elif operation == '-':
-        result = oper.diff(a, b)
 
-    print(f"{a} {operation} {b} = {result}")
-    log.log_to_file(a, b, operation, result)
-    button_click()
+def info(update, context):
+    log.log_one_argument('Вызвана справка')
+    context.bot.send_message(update.effective_chat.id, "Доступны следующие команды:\n\n/sum - сумма\n/diff - разность\n/div - деление\n/mult - умножение\n/info - справка\n\nНажми на команду, чтобы узнать подробнее или воспользуйся меню")
+
+
+# def message(update, context):
+#     text = update.message.text
+#     if text.lower() == 'привет':
+#         log.log_one_argument('Пользователь поздоровался')
+#         context.bot.send_message(update.effective_chat.id, 'Привет..')
+#     else:
+#         log.log_two_argument('Я не понял, что он хотел от меня', f'{update.message.chat.username}: {update.message.text}')
+#         context.bot.send_message(update.effective_chat.id, 'Я тебя не понимаю')
+
+def message(update, context):
+    text = update.message.text
+    if text.lower() == 'справка':
+        log.log_one_argument('Пользователь поздоровался')
+        context.bot.send_message(update.effective_chat.id, 'Введите /info')
+
+
+def unknown(update, context):
+    log.log_two_argument('Я не понял, что он хотел от меня', f'{update.message.chat.username}: {update.message.text}')
+    context.bot.send_message(update.effective_chat.id, 'Шо сказал, не пойму')
+
+
+def summ(update, context):
+    arg = context.args
+    if not arg:
+        log.log_one_argument(f'Нет аргументов для {update.message.text}')
+        context.bot.send_message(
+            update.effective_chat.id, 'Введи /sum и 2 числа через пробел. Например, скопируй и отправь мне следующее сообщение:')
+        context.bot.send_message(update.effective_chat.id, '/sum 22 78')
+    else:
+        total = oper.sum(arg)
+        log.log_one_argument(total)
+        context.bot.send_message(update.effective_chat.id, total)
+
+
+def difference(update, context):
+    arg = context.args
+    if not arg:
+        log.log_one_argument(f'Нет аргументов для {update.message.text}')
+        context.bot.send_message(
+            update.effective_chat.id, 'Введи /diff и 2 числа через пробел. Например, скопируй и отправь мне следующее сообщение:')
+        context.bot.send_message(update.effective_chat.id, '/diff 39 32')
+    else:
+        total = oper.diff(arg)
+        log.log_one_argument(total)
+        context.bot.send_message(update.effective_chat.id, total)
+
+
+def division(update, context):
+    arg = context.args
+    if not arg:
+        log.log_one_argument(f'Нет аргументов для {update.message.text}')
+        context.bot.send_message(
+            update.effective_chat.id, 'Введи /div и 2 числа через пробел. Например, скопируй и отправь мне следующее сообщение:')
+        context.bot.send_message(update.effective_chat.id, '/div 66 4')
+    else:
+        total = oper.div(arg)
+        log.log_one_argument(total)
+        context.bot.send_message(update.effective_chat.id, total)
+
+
+def multiplication(update, context):
+    arg = context.args
+    if not arg:
+        log.log_one_argument(f'Нет аргументов для {update.message.text}')
+        context.bot.send_message(
+            update.effective_chat.id, 'Введи /mult и 2 числа через пробел. Например, скопируй и отправь мне следующее сообщение:')
+        context.bot.send_message(update.effective_chat.id, '/mult 25 3')
+    else:
+        total = oper.mult(arg)
+        log.log_one_argument(total)
+        context.bot.send_message(update.effective_chat.id, total)
+
+
+start_handler = CommandHandler('start', start)
+info_handler = CommandHandler('info', info)
+sum_handler = CommandHandler('sum', summ)
+dif_handler = CommandHandler('diff', difference)
+div_handler = CommandHandler('div', division)
+mult_handler = CommandHandler('mult', multiplication)
+
+message_handler = MessageHandler(Filters.text, message)
+unknown_handler = MessageHandler(Filters.command, unknown)
+
+dispatcher.add_handler(start_handler)
+dispatcher.add_handler(info_handler)
+dispatcher.add_handler(sum_handler)
+dispatcher.add_handler(dif_handler)
+dispatcher.add_handler(div_handler)
+dispatcher.add_handler(mult_handler)
+dispatcher.add_handler(unknown_handler)
+dispatcher.add_handler(message_handler)
+
+
+print('server started')
+updater.start_polling()
+updater.idle()
+
+# a, b, ver = con.const()
+
+# if ver == 0:
+#     print('Программа отменена')
+#     log.log_exit()
+#     exit()
+
+# operation = con.oper()
+
+# if operation == '*':
+#     result = oper.mult(a, b)
+# elif operation == '/':
+#     result = oper.div(a, b)
+# elif operation == '+':
+#     result = oper.sum(a, b)
+# elif operation == '-':
+#     result = oper.diff(a, b)
+
+# print(f"{a} {operation} {b} = {result}")
+# log.log_to_file(a, b, operation, result)
