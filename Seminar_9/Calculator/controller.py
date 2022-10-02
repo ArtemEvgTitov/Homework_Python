@@ -1,4 +1,3 @@
-from distutils.cmd import Command
 import operations as oper
 import logger as log
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, Bot
@@ -11,8 +10,7 @@ dispatcher = updater.dispatcher
 
 
 def start(update, context):
-    reply_keyboard = [['/sum', '/diff'], [
-        '/div', '/mult'], ['cправка']]
+    reply_keyboard = [['сумма', 'разность'], ['деление', 'умножение'], ['справка']]
     markup_key = ReplyKeyboardMarkup(
         reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
     context.bot.send_message(
@@ -22,27 +20,36 @@ def start(update, context):
 
 def info(update, context):
     log.log_one_argument('Вызвана справка')
-    context.bot.send_message(update.effective_chat.id, "Доступны следующие команды:\n\n/sum - сумма\n/diff - разность\n/div - деление\n/mult - умножение\n/info - справка\n\nНажми на команду, чтобы узнать подробнее или воспользуйся меню")
+    context.bot.send_message(
+        update.effective_chat.id, "Доступны следующие команды:\n\n/sum - сумма\n/diff - разность\n/div - деление\n/mult - умножение\n/info - справка\n\nНажми на команду, чтобы узнать подробнее или воспользуйся меню")
 
-
-# def message(update, context):
-#     text = update.message.text
-#     if text.lower() == 'привет':
-#         log.log_one_argument('Пользователь поздоровался')
-#         context.bot.send_message(update.effective_chat.id, 'Привет..')
-#     else:
-#         log.log_two_argument('Я не понял, что он хотел от меня', f'{update.message.chat.username}: {update.message.text}')
-#         context.bot.send_message(update.effective_chat.id, 'Я тебя не понимаю')
 
 def message(update, context):
     text = update.message.text
     if text.lower() == 'справка':
-        log.log_one_argument('Пользователь поздоровался')
+        log.log_one_argument('Нажата кнопка "Справка"')
         context.bot.send_message(update.effective_chat.id, 'Введите /info')
+    elif text.lower() == 'сумма':
+        log.log_one_argument('Нажата кнопка "Сумма"')
+        context.bot.send_message(update.effective_chat.id, 'Введите /sum')
+    elif text.lower() == 'разность':
+        log.log_one_argument('Нажата кнопка "Разность"')
+        context.bot.send_message(update.effective_chat.id, 'Введите /diff')
+    elif text.lower() == 'умножение':
+        log.log_one_argument('Нажата кнопка "Умножение"')
+        context.bot.send_message(update.effective_chat.id, 'Введите /mult')
+    elif text.lower() == 'деление':
+        log.log_one_argument('Нажата кнопка "Деление"')
+        context.bot.send_message(update.effective_chat.id, 'Введите /div')
+    else:
+        log.log_two_argument('Я не понял, что он хотел от меня',
+                             f'{update.message.chat.username}: {update.message.text}')
+        context.bot.send_message(update.effective_chat.id, 'Я тебя не понимаю')
 
 
 def unknown(update, context):
-    log.log_two_argument('Я не понял, что он хотел от меня', f'{update.message.chat.username}: {update.message.text}')
+    log.log_two_argument('Я не понял, что он хотел от меня',
+                         f'{update.message.chat.username}: {update.message.text}')
     context.bot.send_message(update.effective_chat.id, 'Шо сказал, не пойму')
 
 
@@ -121,24 +128,3 @@ dispatcher.add_handler(message_handler)
 print('server started')
 updater.start_polling()
 updater.idle()
-
-# a, b, ver = con.const()
-
-# if ver == 0:
-#     print('Программа отменена')
-#     log.log_exit()
-#     exit()
-
-# operation = con.oper()
-
-# if operation == '*':
-#     result = oper.mult(a, b)
-# elif operation == '/':
-#     result = oper.div(a, b)
-# elif operation == '+':
-#     result = oper.sum(a, b)
-# elif operation == '-':
-#     result = oper.diff(a, b)
-
-# print(f"{a} {operation} {b} = {result}")
-# log.log_to_file(a, b, operation, result)

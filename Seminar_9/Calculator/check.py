@@ -1,4 +1,4 @@
-def check_number(text):    
+def check_number(text):
     try:
         a = float(text[0])
         b = float(text[1])
