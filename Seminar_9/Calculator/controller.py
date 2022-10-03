@@ -10,7 +10,8 @@ dispatcher = updater.dispatcher
 
 
 def start(update, context):
-    reply_keyboard = [['сумма', 'разность'], ['деление', 'умножение'], ['справка']]
+    reply_keyboard = [['Сумма', 'Разность'], ['Деление',
+                                              'Дмножение'], ['Справка']]
     markup_key = ReplyKeyboardMarkup(
         reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
     context.bot.send_message(
@@ -112,6 +113,7 @@ dif_handler = CommandHandler('diff', difference)
 div_handler = CommandHandler('div', division)
 mult_handler = CommandHandler('mult', multiplication)
 
+
 message_handler = MessageHandler(Filters.text, message)
 unknown_handler = MessageHandler(Filters.command, unknown)
 
@@ -126,5 +128,6 @@ dispatcher.add_handler(message_handler)
 
 
 print('server started')
+
 updater.start_polling()
 updater.idle()
