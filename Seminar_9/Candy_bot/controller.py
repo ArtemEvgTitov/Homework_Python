@@ -129,13 +129,13 @@ def game(update, _):
         update.message.reply_text(
             f'{regulations["bot"]} взял {move} кофет. \n\nОсталось {regulations["total"]} конфет')
         update.message.reply_text(
-            f'@{first}, для хода введи /move и число конфет, которое забираешь со стола. \nНапример ⬇️')
+            f'Для хода введи /move и число конфет, которое забираешь со стола. \nНапример ⬇️')
         update.message.reply_text('/move 4')
         log.log_one_argument(f'{regulations["bot"]} взял {move} конфет')
         save()
     else:
         update.message.reply_text(
-            f'@{first}, для хода введи /move и число конфет, которое забираешь со стола. \nНапример ⬇️')
+            f'Для хода введи /move и число конфет, которое забираешь со стола. \nНапример ⬇️')
         update.message.reply_text('/move 4')
 
 
