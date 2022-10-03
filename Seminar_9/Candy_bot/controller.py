@@ -62,7 +62,7 @@ def move_candy(update, _):
     regulations["move"] = int(update.message.text)
     regulations["player"] = update.message.chat.username
     save()
-    log.log_two_argument('Правила определены', f'{regulations}')
+    log.log_two_argument('Правила определены', f'Всего конфет - {regulations["total"]}; максимальное кол-во конфет - {regulations["move"]}')
     update.message.reply_text(
         f'Итак, правила определены:\n\nОбщее кол-во конфет - {regulations["total"]}\nМаксимум можно взять за ход - {regulations["move"]}\n\nДля начала игры введи - /game')
     return ConversationHandler.END
@@ -128,8 +128,16 @@ def game(update, _):
         regulations["total"] -= move
         update.message.reply_text(
             f'{regulations["bot"]} взял {move} кофет. \n\nОсталось {regulations["total"]} конфет')
+        update.message.reply_text(
+            f'@{first}, для хода введи /move и число конфет, которое забираешь со стола. \nНапример ⬇️')
+        update.message.reply_text('/move 4')
         log.log_one_argument(f'{regulations["bot"]} взял {move} конфет')
         save()
+    else:
+        update.message.reply_text(
+            f'@{first}, для хода введи /move и число конфет, которое забираешь со стола. \nНапример ⬇️')
+        update.message.reply_text('/move 4')
+
 
 if __name__ == '__main__':
     updater = Updater(token=TOKEN)
