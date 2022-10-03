@@ -11,7 +11,7 @@ dispatcher = updater.dispatcher
 
 def start(update, context):
     reply_keyboard = [['Сумма', 'Разность'], ['Деление',
-                                              'Дмножение'], ['Справка']]
+                                              'Умножение'], ['Справка']]
     markup_key = ReplyKeyboardMarkup(
         reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
     context.bot.send_message(
