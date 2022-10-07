@@ -21,12 +21,19 @@ def save():
 SURNAME, NAME, TEL, COMMENT = range(4)
 
 
-def start():
-    pass
+def start(update, _):
+    log.text_in_log("Запись контакта")
+    update.message.reply_text('Для отмены введите /cancel\n\nВведите фамилию')
+    return SURNAME
 
 
-def cancel():
-    pass
+def cancel(update, _):
+    log.text_in_log('Выход')
+    update.message.reply_text(
+        'Отмена записи',
+        reply_markup=ReplyKeyboardRemove()
+    )
+    return ConversationHandler.END
 
 
 def surname():
@@ -50,7 +57,7 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
 
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('start', start)],
+        entry_points=[CommandHandler('record', start)],
         states={
             SURNAME: [MessageHandler(Filters.text & ~Filters.command, surname)],
             NAME: [MessageHandler(Filters.text & ~Filters.command, name)],
