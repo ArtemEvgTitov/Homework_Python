@@ -67,6 +67,10 @@ def cancel(update, _):
 
 
 def surname(update, _):
+    if (update.message.text).isalpha() == False:
+        log.text_in_log("Некорректный ввод фамилии - {update.message.text}")
+        update.message.reply_text('Фамилия введена некорректно. Повторите ввод')
+        return SURNAME
     tel_numb['surname'] = update.message.text
     save()
     log.text_in_log(f"Введена фамилия - {update.message.text}")
@@ -75,14 +79,22 @@ def surname(update, _):
 
 
 def name(update, _):
+    if (update.message.text).isalpha() == False:
+        log.text_in_log("Некорректный ввод имени - {update.message.text}")
+        update.message.reply_text('Имя введено некорректно. Повторите ввод')
+        return NAME
     tel_numb['name'] = update.message.text
     save()
     log.text_in_log(f"Введено имя - {update.message.text}")
-    update.message.reply_text('Введите номер телефона')
+    update.message.reply_text('Введите номер телефона без +')
     return TEL
 
 
 def tel(update, _):
+    if (update.message.text).isdigit() == False:
+        log.text_in_log(f"Некорректный ввод номера телефона - {update.message.text}")
+        update.message.reply_text('Номер введён неверно. Повторите ввод')
+        return TEL
     tel_numb['tel'] = update.message.text
     save()
     log.text_in_log(f"Введён номер телефона - {update.message.text}")
