@@ -21,7 +21,7 @@ contact = []
 def save():
     with open("tel_numb.json", "w", encoding="utf-8") as tel:
         tel.write(json.dumps(tel_numb, ensure_ascii=False))
-    log.text_in_log('Телефонная книга сохранена')
+    log.text_in_log('Телефонная книга сохранена!')
 
 
 def load():
